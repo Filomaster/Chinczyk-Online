@@ -1,23 +1,27 @@
 // Author: Filip 'Filomaster' Majorek
 // Description: Utils is my private library, used to format server logs
 
+const color = require("supports-color");
+
 // States
 let OUT_LVL = 0;
 let PRETTY_LENGTH = 20;
+let COLOR = false;
+
 // Formating methods
 let formatTime = (time) => (time < 10 ? "0" + time : time);
 let formattedMessage = (character, color = "") => {
   let time = new Date();
-  return (
-    color +
+  let out =
+    (COLOR ? color : "") +
     formatTime(time.getHours()) +
     ":" +
     formatTime(time.getMinutes()) +
     ":" +
     formatTime(time.getSeconds()) +
     ` [${character}]` +
-    "  -  "
-  );
+    "  -  ";
+  return out;
 };
 let parseArguments = (args) => {
   out = "";
@@ -48,7 +52,9 @@ module.exports = {
      */
     info: (...message) => {
       if (OUT_LVL <= 1)
-        console.log(formattedMessage("INFO", "\x1b[34m") + parseArguments(message) + "\x1b[0m");
+        console.log(
+          formattedMessage("INFO", "\x1b[34m") + parseArguments(message) + (COLOR ? "\x1b[0m" : "")
+        );
     },
     /**
      * This method prints provided arguments as warning level message
@@ -56,7 +62,9 @@ module.exports = {
      */
     warn: (...message) => {
       if (OUT_LVL <= 2)
-        console.log(formattedMessage("WARN", "\x1b[33m") + parseArguments(message) + "\x1b[0m");
+        console.log(
+          formattedMessage("WARN", "\x1b[33m") + parseArguments(message) + (COLOR ? "\x1b[0m" : "")
+        );
     },
     /**
      * This method prints provided arguments as error level message
@@ -64,7 +72,9 @@ module.exports = {
      */
     error: (...message) => {
       if (OUT_LVL <= 3)
-        console.log(formattedMessage("ERROR", "\x1b[31m") + parseArguments(message) + "\x1b[0m");
+        console.log(
+          formattedMessage("ERROR", "\x1b[31m") + parseArguments(message) + (COLOR ? "\x1b[0m" : "")
+        );
     },
     /**
      * This method clear previous line
@@ -89,5 +99,10 @@ module.exports = {
      * 3 - error
      */
     setOutputLevel: (level) => (OUT_LVL = level),
+    checkColors: () => {
+      if (color.stdout) {
+        COLOR = true;
+      }
+    },
   },
 };

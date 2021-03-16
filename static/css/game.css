@@ -1,0 +1,122 @@
+#board {
+  height: 80vh;
+  width: 80vh;
+  background-image: url("../images/board/simple_dark.png");
+  background-size: 80vh 80vh;
+}
+
+.dice {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+}
+
+.dice:hover {
+  cursor: pointer;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+  left: 40%;
+  top: 200px;
+}
+
+.side {
+  position: absolute;
+  background-color: #c8503e;
+  width: 5em;
+  height: 5em;
+  background-size: 5em 5em;
+}
+
+.side:nth-child(1) {
+  -webkit-transform: translateZ(2em);
+          transform: translateZ(2em);
+}
+
+.side:nth-child(6) {
+  -webkit-transform: rotateY(90deg) translateZ(2.5em);
+          transform: rotateY(90deg) translateZ(2.5em);
+}
+
+.side:nth-child(3) {
+  -webkit-transform: rotateY(-90deg) translateZ(2.5em);
+          transform: rotateY(-90deg) translateZ(2.5em);
+}
+
+.side:nth-child(4) {
+  -webkit-transform: rotateX(90deg) translateZ(2.5em);
+          transform: rotateX(90deg) translateZ(2.5em);
+}
+
+.side:nth-child(5) {
+  -webkit-transform: rotateX(-90deg) translateZ(2.5em);
+          transform: rotateX(-90deg) translateZ(2.5em);
+}
+
+.side:nth-child(2) {
+  -webkit-transform: rotateY(-180deg) translateZ(2.5em);
+          transform: rotateY(-180deg) translateZ(2.5em);
+}
+
+.one {
+  background-image: url(../images/dice/1.png);
+}
+
+.two {
+  background-image: url(../images/dice/2.png);
+}
+
+.three {
+  background-image: url(../images/dice/3.png);
+}
+
+.four {
+  background-image: url(../images/dice/4.png);
+}
+
+.five {
+  background-image: url(../images/dice/5.png);
+}
+
+.six {
+  background-image: url(../images/dice/6.png);
+}
+
+.show-1 {
+  -webkit-transform: rotateX(720deg) rotateZ(-720deg);
+          transform: rotateX(720deg) rotateZ(-720deg);
+}
+
+.show-6 {
+  -webkit-transform: rotateX(-900deg) rotateZ(1080deg);
+          transform: rotateX(-900deg) rotateZ(1080deg);
+}
+
+.show-3 {
+  -webkit-transform: rotateY(-450deg) rotateZ(-1440deg);
+          transform: rotateY(-450deg) rotateZ(-1440deg);
+}
+
+.show-4 {
+  -webkit-transform: rotateY(810deg) rotateZ(720deg);
+          transform: rotateY(810deg) rotateZ(720deg);
+}
+
+.show-5 {
+  -webkit-transform: rotateX(-810deg) rotateZ(-1080deg);
+          transform: rotateX(-810deg) rotateZ(-1080deg);
+}
+
+.show-2 {
+  -webkit-transform: rotateX(450deg) rotateZ(-720deg);
+          transform: rotateX(450deg) rotateZ(-720deg);
+}
+/*# sourceMappingURL=game.css.map */
