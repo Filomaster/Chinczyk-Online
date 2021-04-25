@@ -12,7 +12,7 @@ fetch("/templates/game.html").then((res) => {
     .then((str) => (pageContent.innerHTML = str)) // Render converted file on the main page
     .then(() => {
       // Load client-side script for game
-      import("./library/game.js").then((module) => {
+      import("./src/game.js").then((module) => {
         document.getElementById("dice").onclick = function () {
           module.rollDice(); // Add event
         };

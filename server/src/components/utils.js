@@ -1,5 +1,7 @@
 // Author: Filip 'Filomaster' Majorek
-// Description: Utils is my private library, used to format server logs
+// Description: This is my private library, used across all my new projects
+//              Basically it's a set of some very useful methods like better logging or generating random int
+// Last edited: 24.04.2021
 
 const color = require("supports-color");
 
@@ -8,9 +10,9 @@ let OUT_LVL = 0;
 let PRETTY_LENGTH = 20;
 let COLOR = false;
 
-// Formating methods
+//#region  Formating methods
 let formatTime = (time) => (time < 10 ? "0" + time : time);
-let formattedMessage = (character, color = "") => {
+let formattedMessage = (character, color = "", status = null) => {
   let time = new Date();
   let out =
     (COLOR ? color : "") +
@@ -19,8 +21,9 @@ let formattedMessage = (character, color = "") => {
     formatTime(time.getMinutes()) +
     ":" +
     formatTime(time.getSeconds()) +
-    ` [${character}]` +
-    "  -  ";
+    ` [${character}` +
+    (status != null ? ` | ${status}` : "") +
+    "]  -  ";
   return out;
 };
 let parseArguments = (args) => {
@@ -34,9 +37,20 @@ let parseArguments = (args) => {
   }
   return out;
 };
+//#endregion
 
 // Main module
 module.exports = {
+  colors: {
+    red: "\x1b[31m",
+    green: "\x1b[32m",
+    yellow: "\x1b[33m",
+    blue: "\x1b[34m",
+    magenta: "\x1b[35m",
+    cyan: "\x1b[36m",
+    white: "\x1b[37m",
+  },
+  // All methods related to output
   out: {
     /**
      * This method prints provided arguments as debug level message
@@ -77,6 +91,29 @@ module.exports = {
         );
     },
     /**
+     * This method prints message with customized color and prompt. *Both* params are required
+     * @param {color} color - utils.color ascii escape code
+     * @param {string} title - title to prompt
+     * @param  {...any} message - Any provided argument
+     */
+    print: (color = "\x1b[37m", title = "OUT", ...message) => {
+      console.log(
+        formattedMessage(title, color) + parseArguments(message) + (COLOR ? "\x1b[0m" : "")
+      );
+    },
+    /**
+     * This method prints message with customized color and prompt. *All first 3* params are required
+     * @param {color} color - utils.color ascii escape code
+     * @param {string} title - title to prompt
+     * @param {string} status - status of the message, "info" by default
+     * @param  {...any} message - Any provided argument
+     */
+    printStatus: (color = "\x1b[37m", title = "OUT", status = "INFO", ...message) => {
+      console.log(
+        formattedMessage(title, color, status) + parseArguments(message) + (COLOR ? "\x1b[0m" : "")
+      );
+    },
+    /**
      * This method clear previous line
      */
     clearLastLine: () => {
@@ -104,5 +141,11 @@ module.exports = {
         COLOR = true;
       }
     },
+  },
+  // Method for generating random int. I've already used it in previous projects.
+  getRandomInt: (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   },
 };

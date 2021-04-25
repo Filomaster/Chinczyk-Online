@@ -13,4 +13,7 @@ function rollDice() {
   }
 }
 
+gameField = document.getElementById("gameField");
+gameField.style = "width: 100; height: 100; background-color: white";
+
 export { rollDice };
