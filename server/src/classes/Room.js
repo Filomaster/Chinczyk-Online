@@ -9,6 +9,7 @@ class Room {
   #turn = 0; // Index of players array, indicates which player turn is
   #maxThrows = 3; // Maximal number of throws, after getting 6
   #diceThrows = 0; // Number of throws left
+  #throwValue = null;
   #players = []; // Array of all players in the room
   //#endregion
 
@@ -33,13 +34,14 @@ class Room {
       turn: room.#turn,
       maxThrows: room.#maxThrows,
       throws: room.#diceThrows,
+      throwValue: room.#throwValue,
       players: room.#players,
     };
   }
 
-  static deserialize(data) {
-    return new Room(data);
-  }
+  // static deserialize(data) {
+  //   return new Room(data);
+  // }
 }
 
 module.exports = Room;

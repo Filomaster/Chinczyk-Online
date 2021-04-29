@@ -1,8 +1,14 @@
+@font-face {
+  font-family: Tokyo;
+  src: url("../fonts/night-in-tokyo.regular.ttf") format("truetype");
+}
+
 body {
   background-color: #222;
   color: #fff;
   margin: 0;
   padding: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
 #navbar {
@@ -10,14 +16,23 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 5vh;
-  background-color: red;
+  height: 10vh;
+  background-color: #73261d;
+  background: -webkit-gradient(linear, left bottom, left top, from(#73261d), color-stop(50%, #a82f20), to(#73261d));
+  background: linear-gradient(0deg, #73261d 0%, #a82f20 50%, #73261d 100%);
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  font-family: Tokyo;
+  font-size: 5em;
+  color: #debb4c;
+  text-shadow: 0 0 10px #0009;
 }
 
 #content {
   position: relative;
-  margin-top: 5vh;
+  margin-top: 10vh;
   width: 100%;
-  height: 95vh;
+  height: 90vh;
 }
 /*# sourceMappingURL=style.css.map */

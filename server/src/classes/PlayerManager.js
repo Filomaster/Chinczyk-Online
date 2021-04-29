@@ -1,5 +1,7 @@
 "use strict";
 
+const Player = require("./Player");
+
 const { out, colors, getRandomInt: rnd } = require("../components/utils");
 
 /**
@@ -26,20 +28,25 @@ class UserManager {
         uid += String.fromCharCode(rnd(97, 122));
       }
     } while (this.hasUser(uid));
-    this.#activeUsers.set(uid, name || uid);
-    return { uid, name: name || uid };
+    this.#activeUsers.set(uid);
+    out.printStatus(colors.green, "PLAYER MANAGER", "OK", `Created user #${uid}`);
+    let player = new Player(uid, name || uid);
+    return player.serialize();
   };
+
   /**
    * Deletes user with given uid
    * @param {string} uid - uid of the user who will be removed form active users collection
    */
   delUser = (uid) => this.#activeUsers.delete(uid);
+
   /**
    * Checks if user with given uid exist
    * @param {string} uid - user id to search
    * @returns boolean
    */
   hasUser = (uid) => this.#activeUsers.has(uid);
+
   /**
    * Get list of all or specified users
    * @param {string[]} uidList - [optional] list of user ids

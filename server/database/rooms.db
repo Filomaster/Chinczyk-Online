@@ -1,7 +1,23 @@
-{"id":"227999","_id":"6yVfb3HtBgyPxPRl"}
-{"id":"043544","_id":"QHf49Xf9ml17Tew6"}
-{"id":"180020","_id":"XVjWBsHukaplPK5v"}
-{"id":"121682","_id":"Z8EEOnrZGTsArHQi"}
-{"id":"193188","_id":"lutp6LnxlBFIg2wO"}
-{"id":"057964","_id":"vrcheQQwu8KqnAtR"}
-{"id":"015148","_id":"zQ1iQEPR7kCXdAgg"}
+{"id":"019787","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"fgqse","name":"fgqse","positions":[0,0,0,0]},{"uid":"amqru","name":"amqru","positions":[0,0,0,0]},{"uid":"gkwld","name":"gkwld","positions":[0,0,0,0]},{"uid":"rwdym","name":"rwdym","positions":[0,0,0,0]}],"_id":"7HWMbhDAAWIpRvhV"}
+{"id":"011548","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"ypblu","name":"ypblu","dice":null,"positions":[0,0,0,0]},{"uid":"wsjuu","name":"wsjuu","dice":null,"positions":[0,0,0,0]}],"_id":"7sQYbVR8NXN9CRgn"}
+{"id":"006746","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"vvozs","name":"vvozs","positions":[0,0,0,0]}],"_id":"7xx8jrWRtBgYtuSj"}
+{"id":"012242","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"walym","name":"walym","positions":[0,0,0,0]}],"_id":"DNHnTG9jRWoB7oOG"}
+{"id":"029089","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"baflc","name":"baflc","positions":[0,0,0,0]}],"_id":"EU6X6GZunzoEWNpy"}
+{"id":"017442","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"fpgob","name":"fpgob","dice":null,"positions":[0,0,0,0]},{"uid":"rqwhr","name":"rqwhr","dice":null,"positions":[0,0,0,0]}],"_id":"Fg750n3Bc979Os0w"}
+{"id":"012006","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"ihctd","name":"ihctd","dice":null,"positions":[0,0,0,0]},{"uid":"nrvte","name":"nrvte","dice":null,"positions":[0,0,0,0]},{"uid":"usuuj","name":"usuuj","dice":null,"positions":[0,0,0,0]},{"uid":"hptpk","name":"hptpk","dice":null,"positions":[0,0,0,0]}],"_id":"OlToQUbzSi8MFDWK"}
+{"id":"008904","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"qoizg","name":"qoizg","positions":[0,0,0,0]}],"_id":"awZShymA0lD1qpt5"}
+{"id":"020140","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"cyosy","name":"cyosy","positions":[0,0,0,0]},{"uid":"wewat","name":"wewat","positions":[0,0,0,0]},{"uid":"pmizw","name":"pmizw","dice":null,"positions":[0,0,0,0]}],"_id":"ffKGrWeoyOue4IXi"}
+{"id":"002456","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"tbsub","name":"tbsub","dice":null,"positions":[0,0,0,0]},{"uid":"asyie","name":"asyie","dice":null,"positions":[0,0,0,0]}],"_id":"kHeNFMx5ze8pPWqC"}
+{"id":"026378","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"qoizg","name":"qoizg","positions":[0,0,0,0]}],"_id":"nuaDhmyHucF8Im2Q"}
+{"id":"010633","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"kapcb","name":"kapcb","positions":[0,0,0,0]}],"_id":"wnhBz6toKpvQ3EgD"}
+{"id":"010158","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"lwxdl","name":"lwxdl","dice":null,"positions":[0,0,0,0]}],"_id":"yna9GgVKdLCbzPGa"}
+{"id":"011066","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"hkbhu","name":"hkbhu","dice":null,"positions":[0,0,0,0]}],"_id":"MhC18v1ebFJ0GV75"}
+{"id":"019635","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"bpvwq","name":"bpvwq","dice":null,"positions":[0,0,0,0]}],"_id":"hlBZ0gTS1YcPHTlI"}
+{"id":"011329","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"tncrf","name":"tncrf","dice":null,"positions":[0,0,0,0]}],"_id":"ID6AVL8VnGySsvLv"}
+{"id":"013779","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"snukt","name":"snukt","dice":null,"positions":[0,0,0,0]}],"_id":"AXbA9Ry5Ptk2KABc"}
+{"id":"023599","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"uhpwv","name":"uhpwv","dice":null,"positions":[0,0,0,0]}],"_id":"VXyKZlcMAJle0raQ"}
+{"id":"021933","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"heafe","name":"heafe","dice":null,"positions":[0,0,0,0]}],"_id":"sbngZhksXIkwpqUZ"}
+{"id":"024139","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"mmice","name":"mmice","dice":null,"positions":[0,0,0,0]}],"_id":"IqUB73XE29kQSJbV"}
+{"id":"000438","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"knpbt","name":"knpbt","dice":null,"positions":[0,0,0,0]}],"_id":"NQcMlPN9NHFoEFgO"}
+{"id":"002143","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"xiimw","name":"xiimw","dice":null,"positions":[0,0,0,0]}],"_id":"lnQp6OK9Ctxika7V"}
+{"id":"026097","name":"new room","turn":0,"maxThrows":3,"throws":0,"throwValue":null,"players":[{"uid":"jwgpw","name":"jwgpw","dice":null,"positions":[0,0,0,0]}],"_id":"zPY2s46fIpZF42ay"}

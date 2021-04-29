@@ -40,6 +40,10 @@ app.use("/", router); // Using router
 // Executable code below
 out.checkColors();
 
+//? ---- TEST CODE ---
+
+//? ---- END OF TEST CODE ----
+
 // Starting server
 app.listen(PORT, () => {
   out.printStatus(colors.blue, "SERVER", "INFO", `Started listening on port ${PORT}`);

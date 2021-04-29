@@ -1,18 +1,31 @@
 // Author: Filip 'Filomaster' Majorek
 // Description: This is my private library, used across all my new projects
 //              Basically it's a set of some very useful methods like better logging or generating random int
-// Last edited: 24.04.2021
+// Last edited: 25.04.2021
 
 const color = require("supports-color");
 
 // States
-let OUT_LVL = 0;
-let PRETTY_LENGTH = 20;
-let COLOR = false;
+let OUT_LVL = 0; // Which logs will be printed
+let PRETTY_LENGTH = 20; // Wrap message if longer than this value
+let COLOR = false; // Control variable to check if terminal supports ascii color escape codes
 
-//#region  Formating methods
+//#region  Formatting, private methods
+/**
+ * This function format seconds, minutes or hours, adding 0 in the beginning if they are lower than 10
+ * @param {number} time - seconds, minutes or hour number
+ * @returns formatted time string
+ */
 let formatTime = (time) => (time < 10 ? "0" + time : time);
-let formattedMessage = (character, color = "", status = null) => {
+/**
+ * This function format information section of message as following:
+ * (color)0 HH:MM:SS [caller (| status)]
+ * @param {string} caller - function which calls formattedMessage
+ * @param {string} color - [optional] message color in ascii color escape code, please use predefined colors
+ * @param {*} status - [optional] second part of the info, indicate type of message
+ * @returns formatted string with information section
+ */
+let formattedMessage = (caller, color = "", status = null) => {
   let time = new Date();
   let out =
     (COLOR ? color : "") +
@@ -21,11 +34,16 @@ let formattedMessage = (character, color = "", status = null) => {
     formatTime(time.getMinutes()) +
     ":" +
     formatTime(time.getSeconds()) +
-    ` [${character}` +
+    ` [${caller}` +
     (status != null ? ` | ${status}` : "") +
     "]  -  ";
   return out;
 };
+/**
+ * This function parse arguments from array provided to function, stringify object and returns human readable message
+ * @param {...any} args - any list of arguments
+ * @returns human readable message
+ */
 let parseArguments = (args) => {
   out = "";
   for (let i = 0; i < args.length; i++) {

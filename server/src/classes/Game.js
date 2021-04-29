@@ -2,7 +2,6 @@
 
 const Player = require("./Player");
 const Room = require("./Room");
-
 class Game {
   //#region Private fields
   #room; // Room binded to this Game instance; Can not be changed
@@ -21,5 +20,10 @@ class Game {
   //#region getters and setters
   get endMode() { this.#endModes; } //prettier-ignore
   set endMode(mode) { this.#endMode = mode; } //prettier-ignore
+  //#endregion
+
+  //#region Methods
+  start() {}
+  pause() {}
   //#endregion
 }

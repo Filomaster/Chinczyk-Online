@@ -5,6 +5,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const game = require("./game");
+const events = require("./events");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -12,6 +13,8 @@ router.get("/", (req, res) => {
 });
 
 router.use("/game/", game);
+router.use("/events/", events);
+
 // router.use("/images/", images);
 
 // Sending out all necessary files
