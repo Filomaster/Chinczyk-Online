@@ -28,13 +28,20 @@ fetch("/game/check", { method: "POST" }).then((res) => {
   if (res.status == 200) game();
 });
 
-// /*
 conManager.loadPage(ConnectionManager.addresses.home, () => {
   console.log(document.getElementById("newGame"));
   // ! Add "NEW GAME" callback
   document.getElementById("newGame").addEventListener("click", () => {
     fetch("/game/create/", { method: "POST" }).then((res) => {
-      console.log(res);
+      switch (res.status) {
+        case 200:
+          game();
+          break;
+        case 403:
+        case 404:
+          engine.windowManager.show();
+          break;
+      }
       if (res.status == 200) game();
     });
   });
@@ -63,8 +70,21 @@ conManager.loadPage(ConnectionManager.addresses.home, () => {
               headers: { "Content-Type": "application/json" },
               body: data,
             }).then((res) => {
-              console.log(res);
+              engine.windowManager.clear(joinMessage);
               if (res.status == 200) game();
+              else {
+                res.text().then((message) => {
+                  let msgWindow = new Window("ERROR", { message }, [
+                    {
+                      name: "ok",
+                      callback: () => {
+                        engine.windowManager.clear(msgWindow);
+                      },
+                    },
+                  ]);
+                  engine.windowManager.show(msgWindow);
+                });
+              }
             });
           }
         },
@@ -74,7 +94,6 @@ conManager.loadPage(ConnectionManager.addresses.home, () => {
   });
 });
 
-// */
 /*
 // Load game page
 fetch("/game.html").then((res) => {

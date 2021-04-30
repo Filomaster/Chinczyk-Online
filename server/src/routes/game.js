@@ -46,9 +46,7 @@ router.post("/create/", (req, res) => {
       "ERROR",
       `User ${req.session.user.uid} tried to  create new room but is already in room #${req.session.roomId}`
     );
-    return res
-      .status(403)
-      .send("You can't join another room while being in one!");
+    return res.status(403).send("You can't join another room while being in one!");
   }
   rooms.createNew(req.session.user).then((newRoom) => {
     rooms.save(newRoom);
@@ -77,13 +75,8 @@ router.post("/join/", (req, res) => {
   if (!req.session.user) req.session.user = user.createUser();
   rooms.getRoom(roomId).then((room) => {
     if (!room) {
-      out.printStatus(
-        colors.red,
-        "JOIN",
-        "ERROR",
-        `Tried to join non-existing room #${roomId}`
-      );
-      return res.sendStatus(404);
+      out.printStatus(colors.red, "JOIN", "ERROR", `Tried to join non-existing room #${roomId}`);
+      return res.status(404).send(`Room #${roomId} does not exist :c`);
     }
     if (req.session.roomId) {
       out.printStatus(
@@ -92,9 +85,7 @@ router.post("/join/", (req, res) => {
         "ERROR",
         `User ${req.session.user.uid} tried to join room #${req.body.roomId} but is already in #${req.session.roomId}`
       );
-      return res
-        .status(403)
-        .send("You can't join another room while being in one!");
+      return res.status(403).send("You can't join another room while being in one!");
     }
     if (room.players.length >= 4) {
       out.printStatus(
@@ -103,9 +94,7 @@ router.post("/join/", (req, res) => {
         "WARN",
         `Tried to join to room #${roomId} but it's full`
       );
-      return res
-        .status(403)
-        .send("The room is full. Select other room or create new");
+      return res.status(403).send("The room is full. Select other room or create new");
     }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
       rooms.join(roomId, req.session.user);
@@ -126,12 +115,7 @@ router.get("/join/:roomId", (req, res) => {
   if (!req.session.user) req.session.user = user.createUser();
   rooms.getRoom(roomId).then((room) => {
     if (!room) {
-      out.printStatus(
-        colors.red,
-        "JOIN",
-        "ERROR",
-        `Tried to join non-existing room #${roomId}`
-      );
+      out.printStatus(colors.red, "JOIN", "ERROR", `Tried to join non-existing room #${roomId}`);
       return res.sendStatus(404);
     }
     if (req.session.roomId) {
@@ -141,9 +125,7 @@ router.get("/join/:roomId", (req, res) => {
         "ERROR",
         `User ${req.session.user.uid} tried to join room #${req.body.roomId} but is already in #${req.session.roomId}`
       );
-      return res
-        .status(403)
-        .send("You can't join another room while being in one!");
+      return res.status(403).send("You can't join another room while being in one!");
     }
     if (room.players.length >= 4) {
       out.printStatus(
@@ -152,9 +134,7 @@ router.get("/join/:roomId", (req, res) => {
         "WARN",
         `Tried to join to room #${roomId} but it's full`
       );
-      return res
-        .status(403)
-        .send("The room is full. Select other room or create new");
+      return res.status(403).send("The room is full. Select other room or create new");
     }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
       rooms.join(roomId, req.session.user);
@@ -176,16 +156,10 @@ router.post("/state/", (req, res) => {
   if (!req.session.user) return res.sendStatus(403);
   rooms.getRoom(roomId).then((room) => {
     if (!room) {
-      out.printStatus(
-        colors.red,
-        "FETCH",
-        "ERROR",
-        `Room #${roomId} does not exist`
-      );
+      out.printStatus(colors.red, "FETCH", "ERROR", `Room #${roomId} does not exist`);
       return res.sendStatus(404);
     }
-    if (!room.players.find((a) => a.uid == req.session.user.uid))
-      return res.sendStatus(403);
+    if (!room.players.find((a) => a.uid == req.session.user.uid)) return res.sendStatus(403);
     delete room._id;
     console.log(room);
     res.send(JSON.stringify(room));
