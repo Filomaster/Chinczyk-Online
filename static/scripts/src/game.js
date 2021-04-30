@@ -5,6 +5,9 @@
 import Engine from "./classes/Engine.js";
 import Window from "./classes/Window.js";
 let engine = new Engine(document.getElementById("game-container"));
+
+let nickname = null;
+
 let loginWindow = new Window(
   "Set username",
   {
@@ -27,8 +30,12 @@ let loginWindow = new Window(
     },
   ]
 );
+// console.log(!document.cookie.split("; ").find((row) => row.startsWith("name")));
+if (!document.cookie.split("; ").find((row) => row.startsWith("name")))
+  engine.windowManager.show(loginWindow);
 
-engine.windowManager.show(loginWindow);
+engine.gameBoard.update();
+// fetch("game/state/", { method: "POST" }).then((res) => {});
 
 let playerPanel = document.getElementById("player-panel");
 //! CHANGING ORDER OF PLAYER LIST !!!!!!!!!!!!!!!!!!!!!!
@@ -37,10 +44,7 @@ let testOrder = () => {
   for (let i = 0; i < playerPanel.children.length; i++) {
     let current = playerPanel.children[i].style.order;
     playerPanel.children[i].style.order = parseInt(current) + 1;
-    if (
-      parseInt(playerPanel.children[i].style.order) ==
-      playerPanel.children.length + 1
-    )
+    if (parseInt(playerPanel.children[i].style.order) == playerPanel.children.length + 1)
       playerPanel.children[i].style.order = 1;
   }
   console.log("-----------------------");
@@ -69,6 +73,8 @@ let counter = 0;
 // }, 500);
 
 function rollDice() {
+  // !FETCH
+
   var dice = Math.floor(Math.random() * 6 + 1);
 
   for (var i = 1; i <= 6; i++) {
@@ -102,8 +108,7 @@ if (!!window.EventSource) {
   source.addEventListener(
     "error",
     function (e) {
-      if (e.readyState == EventSource.CLOSED)
-        console.log("Connection was closed");
+      if (e.readyState == EventSource.CLOSED) console.log("Connection was closed");
     },
     false
   );

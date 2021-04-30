@@ -4,6 +4,10 @@ const express = require("express");
 const RoomManager = require("../classes/RoomManager");
 const router = express.Router();
 
+router.post("/color/", (req, res) => {
+  let color = req.body.color;
+});
+
 router.post("/user/", (req, res) => {
   let name = req.body.name;
   if (req.session.user && req.session.roomId) {
@@ -17,32 +21,12 @@ router.post("/user/", (req, res) => {
         }).name;
         console.log(req.session.user);
       });
-      // if (modifiedUser) {
-      //   modifiedUser.name = name;
-      //   RoomManager.updateUser(
-      //     req.session.roomId,
-      //     req.session.user,
-      //     modifiedUser
-      //   );
-      // .then((user) => {
-      //   req.session.user.name = user.players.find((a) => {
-      //     return a.uid == req.session.user.uid;
-      //   }).name;
-      //   RoomManager.getRoom(req.session.roomId).then((r) => {
-      //     console.log(("ROOM AFTER MODIFY : ", r));
-      //   });
-      // });
     });
     // RoomManager.updateUser(req.session.roomId, req.session.user);
+    res.cookie("name", req.body.name);
     return res.sendStatus(200);
   }
-  out.printStatus(
-    colors.red,
-    "ROOMS",
-    "ERROR",
-    `Wrong request body`,
-    req.session
-  );
+  out.printStatus(colors.red, "ROOMS", "ERROR", `Wrong request body`, req.session);
   return res.sendStatus(400);
 });
 

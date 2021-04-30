@@ -101,11 +101,11 @@ export default class Window {
     let buttonContainer = document.createElement("div");
     buttonContainer.style = `width: 100%; height: 100%; display: flex; justify-content: space-around;`;
     for (let i = 0; i < this.buttons.length; i++) {
-      document.styleSheets[2].insertRule(
+      document.styleSheets[0].insertRule(
         ".window-button:hover {background-color: #FF7D50; cursor: pointer;}",
         0
       );
-      document.styleSheets[2].insertRule(
+      document.styleSheets[0].insertRule(
         ".window-button{background-color: #C8503F; width: 40%; height: 60%; border: none; border-radius: 15px; color: white; font-size: 1.5em }",
         0
       );

@@ -4,7 +4,7 @@
 const express = require("express");
 const PlayerManager = require("../classes/PlayerManager");
 const RoomManager = require("../classes/RoomManager");
-const { out, colors } = require("../components/utils");
+const { out, colors, getRandomInt: rnd } = require("../components/utils");
 
 const router = express.Router();
 const rooms = RoomManager;
@@ -18,6 +18,11 @@ const symbols = ["a", "b", "3", "d", "5", "f", "g", "z", "i"];
   informacje o pokoju (głównie listę graczy z pozycjami ich pionków i informacje o 
   obecnej kolejce gracza i ilości pozostałych rzutów
 */
+
+let randomColor = () => {
+  let colors = ["yellow", "red", "blue", "green"];
+  return colors[rnd(0, 4)];
+};
 
 let sess;
 //TODO: This is probably wrong endpoint for this stuff, but i just leave this here for now
@@ -48,11 +53,13 @@ router.post("/create/", (req, res) => {
     );
     return res.status(403).send("You can't join another room while being in one!");
   }
+  req.session.user.color = randomColor();
   rooms.createNew(req.session.user).then((newRoom) => {
     rooms.save(newRoom);
     console.log(newRoom);
     req.session.roomId = newRoom.id;
     out.info("New session user: " + req.session.user.uid);
+    res.cookie("host", "true");
     res.sendStatus(200);
   });
 });
@@ -97,6 +104,11 @@ router.post("/join/", (req, res) => {
       return res.status(403).send("The room is full. Select other room or create new");
     }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
+      let color;
+      do {
+        color = randomColor();
+      } while (room.players.find((a) => a.color == color) != undefined);
+      req.session.user.color = color;
       rooms.join(roomId, req.session.user);
       req.session.roomId = roomId;
       out.printStatus(
@@ -137,6 +149,11 @@ router.get("/join/:roomId", (req, res) => {
       return res.status(403).send("The room is full. Select other room or create new");
     }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
+      let color;
+      do {
+        color = randomColor();
+      } while (room.players.find((a) => a.color == color) != undefined);
+      req.session.user.color = color;
       rooms.join(roomId, req.session.user);
       req.session.roomId = roomId;
       out.printStatus(
@@ -152,7 +169,7 @@ router.get("/join/:roomId", (req, res) => {
 
 //! GET CURRENT ROOM STATE
 router.post("/state/", (req, res) => {
-  let roomId = req.body.roomId;
+  let roomId = req.session.roomId;
   if (!req.session.user) return res.sendStatus(403);
   rooms.getRoom(roomId).then((room) => {
     if (!room) {
@@ -166,7 +183,7 @@ router.post("/state/", (req, res) => {
   });
 }); //post
 
-router.post("/dice", (req, res) => {}); //rzucanie kostką
+router.post("/dice/", (req, res) => {}); //rzucanie kostką
 
 router.get("/test/", (req, res) => {
   if (!req.session.user) req.session.user = user.createUser();
