@@ -46,5 +46,10 @@ out.checkColors();
 
 // Starting server
 app.listen(PORT, () => {
-  out.printStatus(colors.blue, "SERVER", "INFO", `Started listening on port ${PORT}`);
+  out.printStatus(
+    colors.blue,
+    "SERVER",
+    "INFO",
+    `Started listening on port ${PORT}`
+  );
 });

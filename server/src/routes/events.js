@@ -1,5 +1,6 @@
 const { response } = require("express");
 const express = require("express");
+const UserManager = require("../classes/UserManager");
 const { out, colors, getRandomInt: rnd } = require("../components/utils");
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.get("/", (req, res) => {
     room: req.session.roomId,
     res,
   };
+  UserManager.addUser(client);
   clients.push(client);
   out.printStatus(
     colors.yellow,
@@ -33,7 +35,7 @@ router.get("/", (req, res) => {
   });
 
   setInterval(() => {
-    clients.forEach((client) => {
+    UserManager.users.forEach((client) => {
       if (client.room == "027664") client.res.write("data: test \n\n");
     });
   }, 1000);

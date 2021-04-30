@@ -12,9 +12,16 @@ const pageContent = document.getElementById("content");
 const engine = new Engine(document.getElementById("content"));
 const conManager = new ConnectionManager(pageContent);
 
+// ! Unified function to load game
+let game = () => {
+  conManager.loadPage(ConnectionManager.addresses.game, () => {
+    import("./src/game.js").then((module) => {});
+  });
+};
+
 // ! First after loading page, check if player already is in the room
 fetch("/game/check", { method: "POST" }).then((res) => {
-  console.log(res.status);
+  if (res.status == 200) game();
 });
 
 // /*
@@ -24,11 +31,14 @@ conManager.loadPage(ConnectionManager.addresses.home, () => {
   document.getElementById("newGame").addEventListener("click", () => {
     fetch("/game/create/", { method: "POST" }).then((res) => {
       console.log(res);
+      if (res.status == 200) game();
     });
   });
   // ! Add "JOIN GAME" callback
   document.getElementById("joinGame").addEventListener("click", () => {
-    let joinMessage = new Window("Join room", { input: { name: "ROOM ID", min: 5, max: 6 } });
+    let joinMessage = new Window("Join room", {
+      input: { name: "ROOM ID", min: 5, max: 6 },
+    });
     joinMessage.buttons = [
       {
         name: "Close",
@@ -50,6 +60,7 @@ conManager.loadPage(ConnectionManager.addresses.home, () => {
               body: data,
             }).then((res) => {
               console.log(res);
+              if (res.status == 200) game();
             });
           }
         },

@@ -16,6 +16,7 @@
     "express-session": "^1.17.1",
     "nedb": "^1.8.0",
     "nedb-session-store": "^1.1.2",
+    "nedb-x": "^0.7.0",
     "redis": "^3.0.2",
     "supports-color": "^8.1.1"
   },

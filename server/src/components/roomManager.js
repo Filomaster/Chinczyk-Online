@@ -6,7 +6,10 @@ const Room = require("../classes/Room");
 const Player = require("../classes/Player");
 const { out: out, getRandomInt: rnd, colors: colors } = require("./utils");
 
-const db = new Datastore({ filename: "./server/database/rooms.db", autoload: true });
+const db = new Datastore({
+  filename: "./server/database/rooms.db",
+  autoload: true,
+});
 
 // ! Data templates for easier managing rooms. They may be classes later
 let templates = {
@@ -45,7 +48,12 @@ module.exports = {
     //  Generating room id
     let id;
     do {
-      out.printStatus(colors.green, "ROOM MGR", "INFO", "Generating room id...");
+      out.printStatus(
+        colors.green,
+        "ROOM MGR",
+        "INFO",
+        "Generating room id..."
+      );
       // Generating 6-digit room id. All numbers lower than 100000 will have 0's appended before number //TODO: Rephrase comment
       id = rnd(1, 300000).toString();
       for (let i = id.length; i < 6; i++) {
@@ -59,7 +67,9 @@ module.exports = {
     );
     out.printStatus(colors.green, "ROOM MGR", "INFO", `Created room #` + id);
     console.log(new Player("test"));
-    console.log(Room.serialize(new Room({ id, player: new Player("test", "test") })));
+    console.log(
+      Room.serialize(new Room({ id, player: new Player("test", "test") }))
+    );
     // db.insert(new Room(id));
   },
 };

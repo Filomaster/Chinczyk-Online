@@ -13,7 +13,10 @@ class RoomManager {
   //#endregion
 
   constructor() {
-    this.#database = new Datastore({ filename: "./server/database/rooms.db", autoload: true });
+    this.#database = new Datastore({
+      filename: "./server/database/rooms.db",
+      autoload: true,
+    });
   }
 
   /**
@@ -39,7 +42,12 @@ class RoomManager {
           id = "0" + id;
         }
       } while (await self.checkExist(id)); // If room already exist, generate new id
-      out.printStatus(colors.green, "ROOM MANAGER", "SUCCESS", `generated new room with id #${id}`);
+      out.printStatus(
+        colors.green,
+        "ROOM MANAGER",
+        "SUCCESS",
+        `generated new room with id #${id}`
+      );
       let room = new Room({ id, player }); // Create new room object
       res(Room.serialize(room)); // return object with new room
     });
@@ -61,10 +69,15 @@ class RoomManager {
    * @param {Player} player - new player object
    */
   async join(id, player) {
-    this.#database.update({ id: id }, { $push: { players: player } }, (err, num, room) => {
-      if (err) return out.printStatus(colors.red, "ROOM MANAGER", "ERROR", err);
-      out.printStatus(colors.yellow, "ROOM MANAGER", "MODIFIED", room);
-    });
+    this.#database.update(
+      { id: id },
+      { $push: { players: player } },
+      (err, num, room) => {
+        if (err)
+          return out.printStatus(colors.red, "ROOM MANAGER", "ERROR", err);
+        out.printStatus(colors.yellow, "ROOM MANAGER", "MODIFIED", room);
+      }
+    );
   }
 
   /**
@@ -78,6 +91,43 @@ class RoomManager {
         res(count);
       });
     });
+  }
+
+  async updateUser(roomid, oldPlayer, newPlayer) {
+    let self = this;
+    this.#database.find({ id: roomid }, (err, doc) => {
+      let dbPlayer = doc[0].players.find((a) => a.uid == oldPlayer.uid);
+      out.debug(dbPlayer, oldPlayer, newPlayer, oldPlayer == dbPlayer);
+    });
+    // return new Promise((res, rej) => {
+    //   this.#database.update(
+    //     { id: roomid },
+    //     { $pull: { players: oldPlayer } },
+    //     { returnUpdatedDocs: true },
+    //     (err, num, room) => {
+    //       // console.log(err, num, room);
+    //       if (err) {
+    //         return out.printStatus(colors.red, "DATABASE", "ERROR", err);
+    //         // rej(err);
+    //       }
+    //       out.printStatus(colors.yellow, "ROOM MANAGER", "PULL", room);
+    //       self.#database.update(
+    //         { id: roomid },
+    //         { $push: { players: newPlayer } },
+    //         { returnUpdatedDocs: true },
+    //         (err, num, room) => {
+    //           // console.log(err, num, room);
+    //           if (err) {
+    //             return out.printStatus(colors.red, "DATABASE", "ERROR", err);
+    //             // rej(err);
+    //           }
+    //           out.printStatus(colors.green, "ROOM MANAGER", "PUSH", room);
+    //           res(room);
+    //         }
+    //       );
+    //     }
+    //   );
+    // });
   }
 
   /**

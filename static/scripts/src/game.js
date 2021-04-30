@@ -5,23 +5,29 @@
 import Engine from "./classes/Engine.js";
 import Window from "./classes/Window.js";
 let engine = new Engine(document.getElementById("game-container"));
-let loginWindow = new Window("Set username", { input: { name: "username", min: 1, max: 20 } });
+let loginWindow = new Window(
+  "Set username",
+  {
+    input: { name: "username", min: 1, max: 20 },
+  },
+  [
+    {
+      name: "Continue",
+      callback: () => {
+        if (loginWindow.value) {
+          console.log(loginWindow.value);
+          fetch("/rooms/user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: loginWindow.value }),
+          });
+          engine.windowManager.clear(loginWindow);
+        }
+      },
+    },
+  ]
+);
 
-loginWindow.buttons = [
-  {
-    name: "Close",
-    callback: () => {
-      engine.windowManager.clear(loginWindow);
-    },
-  },
-  {
-    name: "Ok",
-    callback: () => {
-      console.log(loginWindow.getValue());
-      if (loginWindow.value) engine.windowManager.clear(loginWindow);
-    },
-  },
-];
 engine.windowManager.show(loginWindow);
 
 let playerPanel = document.getElementById("player-panel");
@@ -31,7 +37,10 @@ let testOrder = () => {
   for (let i = 0; i < playerPanel.children.length; i++) {
     let current = playerPanel.children[i].style.order;
     playerPanel.children[i].style.order = parseInt(current) + 1;
-    if (parseInt(playerPanel.children[i].style.order) == playerPanel.children.length + 1)
+    if (
+      parseInt(playerPanel.children[i].style.order) ==
+      playerPanel.children.length + 1
+    )
       playerPanel.children[i].style.order = 1;
   }
   console.log("-----------------------");
@@ -93,7 +102,8 @@ if (!!window.EventSource) {
   source.addEventListener(
     "error",
     function (e) {
-      if (e.readyState == EventSource.CLOSED) console.log("Connection was closed");
+      if (e.readyState == EventSource.CLOSED)
+        console.log("Connection was closed");
     },
     false
   );
