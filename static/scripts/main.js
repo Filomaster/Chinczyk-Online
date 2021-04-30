@@ -15,7 +15,11 @@ const conManager = new ConnectionManager(pageContent);
 // ! Unified function to load game
 let game = () => {
   conManager.loadPage(ConnectionManager.addresses.game, () => {
-    import("./src/game.js").then((module) => {});
+    import("./src/game.js").then((module) => {
+      document.getElementById("dice").onclick = function () {
+        module.rollDice(); // Add event
+      };
+    });
   });
 };
 

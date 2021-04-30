@@ -93,11 +93,21 @@ class RoomManager {
     });
   }
 
-  async updateUser(roomid, oldPlayer, newPlayer) {
+  async update(roomid, newRoom) {
     let self = this;
-    this.#database.find({ id: roomid }, (err, doc) => {
-      let dbPlayer = doc[0].players.find((a) => a.uid == oldPlayer.uid);
-      out.debug(dbPlayer, oldPlayer, newPlayer, oldPlayer == dbPlayer);
+    return new Promise((res, rej) => {
+      this.#database.update(
+        { id: roomid },
+        newRoom,
+        { returnUpdatedDocs: true },
+        (err, num, docs) => {
+          if (err) {
+            out.printStatus(colors.red, "DATABASE", "ERROR", err);
+            rej(err);
+          }
+          res(docs);
+        }
+      );
     });
     // return new Promise((res, rej) => {
     //   this.#database.update(
