@@ -6,7 +6,6 @@ const express = require("express");
 const session = require("express-session");
 const nedb = require("nedb");
 const nedbStore = require("nedb-session-store")(session);
-const dotenv = require("dotenv").config();
 // Custom files and modulesimport
 const { out, colors } = require("./src/components/utils");
 const UserManager = require("./src/classes/PlayerManager");
@@ -27,7 +26,7 @@ app.use(
     resave: false,
     store: new nedbStore({
       filename: "./server/database/session.db",
-      autoCompactInterval: 5000,
+      autoCompactInterval: 50000,
     }),
   })
 );
@@ -46,10 +45,5 @@ out.checkColors();
 
 // Starting server
 app.listen(PORT, () => {
-  out.printStatus(
-    colors.blue,
-    "SERVER",
-    "INFO",
-    `Started listening on port ${PORT}`
-  );
+  out.printStatus(colors.blue, "SERVER", "INFO", `Started listening on port ${PORT}`);
 });
