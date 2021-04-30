@@ -12,11 +12,13 @@ export default class Engine {
   ];
   // All player 'homes' position (from entrance)
   static homes = {
-    yl: [136, 123, 110, 97],
-    rd: [80, 81, 82, 83],
-    bl: [32, 45, 58, 71],
-    gr: [88, 87, 86, 85],
+    yellow: [136, 123, 110, 97],
+    red: [80, 81, 82, 83],
+    blue: [32, 45, 58, 71],
+    green: [88, 87, 86, 85],
   };
+  static offset = { yellow: 0, red: 10, blue: 20, green: 30 };
+  static order = { yellow: 1, red: 2, blue: 3, green: 4 };
   static //#endregion
   window = null;
 
@@ -30,7 +32,21 @@ export default class Engine {
       for (let i = 0; i < 169; i++) {}
     },
     // update positions on board
-    update: () => {},
+    update: () => {
+      fetch("game/state/", { method: "POST" }).then((res) => {
+        res.text().then((text) => {
+          let gameData = JSON.parse(text);
+          gameData.players.forEach((player) => {
+            let playerBar = document.createElement("div");
+            playerBar.style.backgroundColor = player.color;
+            console.log(player);
+            playerBar.order = Engine.order[player.color];
+            playerBar.innerText = player.name;
+            document.getElementById("player-panel").append(playerBar);
+          });
+        });
+      });
+    },
   };
   windowManager = {
     /**
@@ -43,5 +59,6 @@ export default class Engine {
     clear: (window) => {
       this.parent.removeChild(window.window);
     },
+    displayPrompt: (message, parent) => {},
   };
 }

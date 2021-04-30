@@ -16,6 +16,26 @@ const conManager = new ConnectionManager(pageContent);
 let game = () => {
   conManager.loadPage(ConnectionManager.addresses.game, () => {
     import("./src/game.js").then((module) => {
+      // document.getElementById("colorSelection-yl").onclick = (e) => {
+      //   e.target.disabled = true;
+      //   console.log("yellow");
+      //   module.selectColor("yellow");
+      // };
+      // document.getElementById("colorSelection-rd").onclick = (e) => {
+      //   e.target.disabled = true;
+      //   console.log("red");
+      //   module.selectColor("red");
+      // };
+      // document.getElementById("colorSelection-bl").onclick = (e) => {
+      //   e.target.disabled = true;
+      //   console.log("blue");
+      //   module.selectColor("blue");
+      // };
+      // document.getElementById("colorSelection-gr").onclick = (e) => {
+      //   e.target.disabled = true;
+      //   console.log("green");
+      //   module.selectColor("green");
+      // };
       document.getElementById("dice").onclick = function () {
         module.rollDice(); // Add event
       };
