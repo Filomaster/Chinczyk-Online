@@ -26,7 +26,7 @@ app.use(
     resave: false,
     store: new nedbStore({
       filename: "./server/database/session.db",
-      autoCompactInterval: 50000,
+      autoCompactInterval: 120000,
     }),
   })
 );
