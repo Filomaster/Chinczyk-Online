@@ -1,21 +1,49 @@
 // Author: Filip 'Filomaster' Majorek
-// Description: This is main file of Ludo server
+// Description: This is main file of the server
 
-// Imports
+// #region Imports
 const express = require("express");
 const session = require("express-session");
-const output = require("./library/utils").out;
-const router = require("./routes/router");
+const nedb = require("nedb");
+const nedbStore = require("nedb-session-store")(session);
+// Custom files and modulesimport
+const { out, colors } = require("./src/components/utils");
+const UserManager = require("./src/classes/PlayerManager");
+const router = require("./src/routes/router");
+const path = require("path");
+//#endregion
 
 // Constants
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Using router
-app.use("/", router);
+// Creating session
+app.use(
+  session({
+    secret: "oreWaHimitsuDesu",
+    name: "_ludoOnline",
+    saveUninitialized: true,
+    resave: false,
+    store: new nedbStore({
+      filename: "./server/database/session.db",
+      autoCompactInterval: 50000,
+    }),
+  })
+);
+app.use(express.static(path.join(__dirname, "../static/html")));
+app.use(express.static(path.join(__dirname, "../static")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", router); // Using router
+
+// Executable code below
+out.checkColors();
+
+//? ---- TEST CODE ---
+
+//? ---- END OF TEST CODE ----
 
 // Starting server
-output.checkColors();
 app.listen(PORT, () => {
-  output.info(`Started listening on port ${PORT}`);
+  out.printStatus(colors.blue, "SERVER", "INFO", `Started listening on port ${PORT}`);
 });
