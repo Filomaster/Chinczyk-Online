@@ -31,13 +31,11 @@
 #function-panel {
   width: 100%;
   height: 80vh;
-  background-color: #151515;
 }
 
 #player-panel {
   width: 100%;
   height: 50%;
-  background-color: black;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: (4)[1fr];
@@ -71,7 +69,7 @@
 #board {
   height: 80vh;
   width: 80vh;
-  background-image: url("../images/board/oriental.png");
+  background-image: url("../images/board/dark.png");
   background-size: 80vh 80vh;
   display: -ms-grid;
   display: grid;
@@ -112,12 +110,12 @@
   background-size: 5em 5em;
 }
 
-.side:nth-child(1) {
+.side:nth-child(6) {
   -webkit-transform: translateZ(2em);
           transform: translateZ(2em);
 }
 
-.side:nth-child(6) {
+.side:nth-child(1) {
   -webkit-transform: rotateY(90deg) translateZ(2.5em);
           transform: rotateY(90deg) translateZ(2.5em);
 }
@@ -142,56 +140,99 @@
           transform: rotateY(-180deg) translateZ(2.5em);
 }
 
-.one {
+#inactivityCounter {
+  width: 100%;
+  font-size: 3em;
+  font-family: "Open Sans";
+  color: #555;
+  text-align: center;
+}
+
+#dice-container-2 {
+  margin-top: 5vh;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+button {
+  margin-top: 2vh;
+  background-color: #c8503f;
+  width: 60%;
+  height: 80%;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.5em;
+}
+
+button:hover {
+  background-color: #ff7d50;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #888;
+  cursor: default;
+}
+
+#new-dice {
+  margin-top: 1vh;
+  width: 20vh;
+  height: 20vh;
+  background-size: cover;
+}
+
+.num-1 {
   background-image: url(../images/dice/1.png);
 }
 
-.two {
+.num-2 {
   background-image: url(../images/dice/2.png);
 }
 
-.three {
+.num-3 {
   background-image: url(../images/dice/3.png);
 }
 
-.four {
+.num-4 {
   background-image: url(../images/dice/4.png);
 }
 
-.five {
+.num-5 {
   background-image: url(../images/dice/5.png);
 }
 
-.six {
+.num-6 {
   background-image: url(../images/dice/6.png);
 }
 
-.show-1 {
+.show-6 {
   -webkit-transform: rotateX(720deg) rotateZ(-720deg);
           transform: rotateX(720deg) rotateZ(-720deg);
 }
 
-.show-6 {
+.show-1 {
   -webkit-transform: rotateX(-900deg) rotateZ(1080deg);
           transform: rotateX(-900deg) rotateZ(1080deg);
 }
 
-.show-3 {
+.show-4 {
   -webkit-transform: rotateY(-450deg) rotateZ(-1440deg);
           transform: rotateY(-450deg) rotateZ(-1440deg);
 }
 
-.show-4 {
+.show-3 {
   -webkit-transform: rotateY(810deg) rotateZ(720deg);
           transform: rotateY(810deg) rotateZ(720deg);
 }
 
-.show-5 {
+.show-2 {
   -webkit-transform: rotateX(-810deg) rotateZ(-1080deg);
           transform: rotateX(-810deg) rotateZ(-1080deg);
 }
 
-.show-2 {
+.show-5 {
   -webkit-transform: rotateX(450deg) rotateZ(-720deg);
           transform: rotateX(450deg) rotateZ(-720deg);
 }

@@ -21,7 +21,7 @@ const symbols = ["a", "b", "3", "d", "5", "f", "g", "z", "i"];
 
 let randomColor = () => {
   let colors = ["yellow", "red", "blue", "green"];
-  return colors[rnd(0, 4)];
+  return colors[rnd(0, 3)];
 };
 
 let sess;
@@ -60,6 +60,7 @@ router.post("/create/", (req, res) => {
     req.session.roomId = newRoom.id;
     out.info("New session user: " + req.session.user.uid);
     res.cookie("host", "true");
+    res.cookie("color", req.session.user.color);
     res.sendStatus(200);
   });
 });
@@ -103,12 +104,22 @@ router.post("/join/", (req, res) => {
       );
       return res.status(403).send("The room is full. Select other room or create new");
     }
+    if (room.state == "game") {
+      out.printStatus(
+        colors.yellow,
+        "JOIN",
+        "WARN",
+        `Tried to join to room #${roomId} but the game already started`
+      );
+      return res.status(403).send("The game has begin. Can't join in the middle of game");
+    }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
       let color;
       do {
         color = randomColor();
       } while (room.players.find((a) => a.color == color) != undefined);
       req.session.user.color = color;
+      res.cookie("color", req.session.user.color);
       rooms.join(roomId, req.session.user);
       req.session.roomId = roomId;
       out.printStatus(
@@ -148,6 +159,15 @@ router.get("/join/:roomId", (req, res) => {
       );
       return res.status(403).send("The room is full. Select other room or create new");
     }
+    if (room.state == "game") {
+      out.printStatus(
+        colors.yellow,
+        "JOIN",
+        "WARN",
+        `Tried to join to room #${roomId} but the game already started`
+      );
+      return res.status(403).send("The game has begin. Can't join in the middle of game");
+    }
     if (!room.players.find((a) => a.uid == req.session.user.uid)) {
       let color;
       do {
@@ -167,6 +187,71 @@ router.get("/join/:roomId", (req, res) => {
   });
 });
 
+router.post("/start/", (req, res) => {
+  let roomId = req.session.roomId;
+  rooms.getRoom(roomId).then((room) => {
+    out.printStatus(colors.green, "GAME", "START", `started game in room ${roomId}`);
+    room.state = "game";
+    let pColors = ["yellow", "red", "blue", "green"];
+    for (let i = 0; i < 4; i++) {
+      if (room.players.find((a) => a.color == pColors[i])) {
+        console.log("Player with color " + pColors[i]);
+        room.turn = pColors[i];
+        break;
+      }
+      RoomManager.update(req.session.roomId, room).then((updated) => {
+        console.log(updated);
+        res.end();
+        // res.sendStatus(200);
+      });
+    }
+  });
+});
+
+router.post("/action/", (req, res) => {
+  let roomId = req.session.roomId;
+  rooms.getRoom(roomId).then((room) => {
+    let player = room.players.find((a) => a.uid == req.session.user.uid);
+    console.log("Action", player, req.body.piece);
+    if (player.positions[req.body.piece] == 0) player.positions[req.body.piece] = 1;
+    else player.positions[req.body.piece] += room.throwValue;
+
+    let pColors = ["yellow", "red", "blue", "green"];
+
+    // if (room.players.find((a) => a.uid != req.session.user.uid)) {
+    //   let add = { yellow: 0, red: 10, blue: 20, green: 30 };
+    //   room.players
+    //     .find((a) => a.uid != req.session.user.uid)
+    //     .forEach((element) => {
+    //       element.positions.forEach((piece) => {
+    //         if (piece + add[element.color] == player.positions[req.body.piece]) piece = 0;
+    //       });
+    //     });
+    // }
+
+    if (room.throwValue != 6) {
+      console.log("current turn: " + room.turn + "default queue" + pColors);
+      for (i = 0; i < pColors.indexOf(room.turn); i++) {
+        pColors.push(pColors.shift());
+      }
+      console.log("shifted queue: " + pColors);
+
+      for (let i = 0; i < 4; i++) {
+        if (room.players.find((a) => a.color == pColors[i])) {
+          if (pColors[i] != room.turn || room.players.length == 1) {
+            console.log("Player with color " + pColors[i]);
+            room.turn = pColors[i];
+            break;
+          }
+        }
+      }
+    }
+    rooms.update(roomId, room).then(() => {
+      res.sendStatus(200);
+    });
+  });
+});
+
 //! GET CURRENT ROOM STATE
 router.post("/state/", (req, res) => {
   let roomId = req.session.roomId;
@@ -183,7 +268,30 @@ router.post("/state/", (req, res) => {
   });
 }); //post
 
-router.post("/dice/", (req, res) => {}); //rzucanie kostką
+router.post("/dice/", (req, res) => {
+  let roomId = req.session.roomId;
+  let num = rnd(1, 6);
+  console.log(num);
+  rooms.getRoom(roomId).then((room) => {
+    let positions = room.players.find((a) => a.uid == req.session.user.uid).positions;
+    console.log(positions);
+    let moves = [];
+    for (let i = 0; i < 4; i++) {
+      if (positions[i] == 0 && num != 6 && num != 1) moves.push(false);
+      else if (positions[i] > 38 && positions[i] + num > 44) moves.push(false);
+      else moves.push(true);
+    }
+    console.log(moves);
+    res.send(JSON.stringify({ dice: num, moves }));
+    room.throws++;
+    room.throwValue = num;
+    rooms.update(roomId, room);
+  });
+}); //rzucanie kostką
+
+router.get("/id/", (req, res) => {
+  res.send(JSON.stringify({ id: req.session.roomId }));
+});
 
 router.get("/test/", (req, res) => {
   if (!req.session.user) req.session.user = user.createUser();

@@ -1,8 +1,9 @@
 "use strict";
 
 const Datastore = require("nedb");
-const Room = require("../classes/Room");
-const Player = require("../classes/Player");
+const Room = require("./Room");
+const Player = require("./Player");
+const UserManager = require("./UserManager");
 const { out, colors, getRandomInt: rnd } = require("../components/utils");
 
 class RoomManager {
@@ -42,12 +43,7 @@ class RoomManager {
           id = "0" + id;
         }
       } while (await self.checkExist(id)); // If room already exist, generate new id
-      out.printStatus(
-        colors.green,
-        "ROOM MANAGER",
-        "SUCCESS",
-        `generated new room with id #${id}`
-      );
+      out.printStatus(colors.green, "ROOM MANAGER", "SUCCESS", `generated new room with id #${id}`);
       let room = new Room({ id, player }); // Create new room object
       res(Room.serialize(room)); // return object with new room
     });
@@ -69,15 +65,13 @@ class RoomManager {
    * @param {Player} player - new player object
    */
   async join(id, player) {
-    this.#database.update(
-      { id: id },
-      { $push: { players: player } },
-      (err, num, room) => {
-        if (err)
-          return out.printStatus(colors.red, "ROOM MANAGER", "ERROR", err);
-        out.printStatus(colors.yellow, "ROOM MANAGER", "MODIFIED", room);
-      }
-    );
+    this.#database.update({ id: id }, { $push: { players: player } }, (err, num, room) => {
+      if (err) return out.printStatus(colors.red, "ROOM MANAGER", "ERROR", err);
+      out.printStatus(colors.yellow, "ROOM MANAGER", "MODIFIED", room);
+      UserManager.users.forEach((client) => {
+        if (client.room == id) client.res.write("data: update\n\n");
+      });
+    });
   }
 
   /**
@@ -105,6 +99,9 @@ class RoomManager {
             out.printStatus(colors.red, "DATABASE", "ERROR", err);
             rej(err);
           }
+          UserManager.users.forEach((client) => {
+            if (client.room == roomid) client.res.write("data: update \n\n");
+          });
           res(docs);
         }
       );

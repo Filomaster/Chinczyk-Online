@@ -11,22 +11,40 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+#buttonsBcg {
+  width: 80%;
+  height: 60%;
+  padding: 20px;
+  background-color: #000a;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+#menuBcg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/bcg.png");
+  background-size: cover;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
 #navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 10vh;
-  background-color: #73261d;
-  background: -webkit-gradient(linear, left bottom, left top, from(#73261d), color-stop(50%, #a82f20), to(#73261d));
-  background: linear-gradient(0deg, #73261d 0%, #a82f20 50%, #73261d 100%);
+  background-color: #c8503f;
   display: -ms-grid;
   display: grid;
   place-items: center;
   font-family: Tokyo;
-  font-size: 5em;
-  color: #debb4c;
-  text-shadow: 0 0 10px #0009;
+  font-size: 7em;
+  color: black;
 }
 
 #content {
@@ -34,5 +52,20 @@ body {
   margin-top: 10vh;
   width: 100%;
   height: 90vh;
+}
+
+button {
+  margin-top: 2vh;
+  background-color: #c8503f;
+  width: 60%;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.5em;
+}
+
+button:hover {
+  background-color: #ff7d50;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */
