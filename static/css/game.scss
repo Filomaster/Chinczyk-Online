@@ -139,6 +139,20 @@ button {
   font-size: 1.5em;
 }
 
+.window-button:hover {
+  background-color: #ff7d50;
+  cursor: pointer;
+}
+.window-button {
+  background-color: #c8503f;
+  width: 40%;
+  height: 60%;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.5em;
+}
+
 button:hover {
   background-color: #ff7d50;
   cursor: pointer;
