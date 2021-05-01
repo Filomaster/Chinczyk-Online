@@ -14,25 +14,45 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+#buttonsBcg {
+  width: 80%;
+  height: 60%;
+  padding: 20px;
+  background-color: #000a;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+#menuBcg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/bcg.png");
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+
 #navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 10vh;
-  background-color: #73261d;
-  background: linear-gradient(
-    0deg,
-    rgba(115, 38, 29, 1) 0%,
-    rgba(168, 47, 32, 1) 50%,
-    rgba(115, 38, 29, 1) 100%
-  );
+  background-color: #c8503f;
+  // background: linear-gradient(
+  //   0deg,
+  //   rgba(115, 38, 29, 1) 0%,
+  //   rgba(168, 47, 32, 1) 50%,
+  //   rgba(115, 38, 29, 1) 100%
+  // );
   display: grid;
   place-items: center;
   font-family: Tokyo;
-  font-size: 5em;
-  color: #debb4c;
-  text-shadow: 0 0 10px #0009;
+  font-size: 7em;
+  color: black;
+  // color: #debb4c;
+  // text-shadow: 0 0 10px #0009;
 }
 #content {
   position: relative;
@@ -41,12 +61,17 @@ body {
   height: 90vh;
 }
 
-.buttons {
+button {
+  margin-top: 2vh;
   background-color: #c8503f;
-  width: 40%;
-  height: 60%;
+  width: 60%;
   border: none;
   border-radius: 15px;
   color: white;
   font-size: 1.5em;
+}
+
+button:hover {
+  background-color: #ff7d50;
+  cursor: pointer;
 }

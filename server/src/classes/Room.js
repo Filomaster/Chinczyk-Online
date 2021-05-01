@@ -6,7 +6,8 @@ class Room {
   //#region Private fields
   #id; // Id of the room; Can not be changed after initialization
   #name = "new room"; // Name of the room, can be changed
-  #turn = 0; // Index of players array, indicates which player turn is
+  #state = "waiting";
+  #turn = null; // Index of players array, indicates which player turn is
   #maxThrows = 3; // Maximal number of throws, after getting 6
   #diceThrows = 0; // Number of throws left
   #throwValue = null;
@@ -32,6 +33,7 @@ class Room {
       id: room.#id,
       name: room.#name,
       turn: room.#turn,
+      state: room.#state,
       maxThrows: room.#maxThrows,
       throws: room.#diceThrows,
       throwValue: room.#throwValue,

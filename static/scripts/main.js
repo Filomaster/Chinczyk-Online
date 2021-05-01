@@ -36,8 +36,11 @@ let game = () => {
       //   console.log("green");
       //   module.selectColor("green");
       // };
-      document.getElementById("dice").onclick = function () {
+      document.getElementById("roll").onclick = function () {
         module.rollDice(); // Add event
+      };
+      document.getElementById("start").onclick = function () {
+        module.startGame();
       };
     });
   });
